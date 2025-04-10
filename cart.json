@@ -1,0 +1,20 @@
+[
+  {
+    "productId": "dragonborn-jacket",
+    "name": "dragonborn jacket",
+    "size": "L",
+    "price": 10000
+  },
+  {
+    "productId": "dragonborn-jacket",
+    "name": "dragonborn jacket",
+    "size": "M",
+    "price": 10000
+  },
+  {
+    "productId": "dragonborn-jacket",
+    "name": "dragonborn jacket",
+    "size": "XL",
+    "price": 10000
+  }
+]
