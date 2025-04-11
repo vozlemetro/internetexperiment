@@ -200,6 +200,18 @@
 	background-color: #000080;
 }
 
+.backimage{
+  margin-top: 160px;
+  margin-left: 120px;
+  position: relative;
+}
+
+.binitem{
+  position: absolute;
+  width: 620px;
+  height: 80px;
+  background-color: #000000;
+}
 
 @font-face {
   font-family: tech;
