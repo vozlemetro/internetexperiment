@@ -1,21 +1,35 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Корзина</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body style="background-color:white; font-family: tech;">
-  <div class="header">
-    <a href="web.experiment_catalog.html" class="home">
-      <img class="logo" src="assets/logoforhead2.png" alt="" width="320" height="96">
-    </a>
-  </div>
 
-  <div style="margin-top: 160px; padding: 40px;">
-    <h1>Твоя корзина</h1>
-    <div id="cart-container" style="font-size: 20px;"></div>
-  </div>
+  <title>web.experiment</title>
+  <meta charset ="utf-8">  
+  <link rel="stylesheet" href="styles.css">
+  <link rel="shortcut icon" href="/assets/logo.png"/>
+
+</head>
+
+<body>
+
+    <div class = 'cartbody'>
+  
+      <div class='header'>
+  
+        <a href="index.html" class = home>
+          <img class = 'logo' src="assets\logoforhead2.png" alt="" width="320" height="96">
+        </a>
+  
+        <a href="cart.html" class = shopbutton>
+          <img class = 'bin' src="assets\P example.png" alt="" width="64" height="64">
+        </a>
+  
+        <a href="profile.html" class = profilebutton>
+          <img class = 'profile' src="assets\profile.png" alt="" width="64" height="64">
+        </a>
+  
+      </div>
+  
+    </div>
 
   <script>
     fetch('/cart.json')

@@ -17,7 +17,7 @@
 }
 
 .bodymain {
-  background-image: url("assets/homepage70.jpg");
+  background-image: url("assets/homepage.jpg");
   background-size: 1920px;
   background-attachment: fixed;
   min-height: 100rem;
@@ -25,6 +25,15 @@
 
 .bodydragon {
   background-image: url("assets/dragonborn.jpg");
+  background-size: 1920px;
+  background-attachment: fixed;
+  height: 1080px;
+  width: 1920px;
+  position: absolute;
+}
+
+.cartbody {
+  background-image: url("assets/jap.web.jpg");
   background-size: 1920px;
   background-attachment: fixed;
   height: 1080px;
@@ -98,7 +107,7 @@
 .itemname{
   font-weight: bold;
   font-family: tech;
-  font-size: 50;
+  font-size: 50px;
   margin-top: 16px;
   margin-left: 120px;
 }
@@ -106,7 +115,7 @@
 .itemprice{
   font-family: tech;
   font-weight: bold;
-  font-size: 40;
+  font-size: 40px;
   margin-top: 24px;
   margin-left: 120px;
 }
@@ -116,7 +125,7 @@
   margin-right: 120px;
   margin-top: 40px;
   font-family: tech;
-  font-size: 30;
+  font-size: 30px;
 }
 
 .buttons{
@@ -138,7 +147,7 @@
 .radiosize label {
   font-family: w95;
   font-weight: bold;
-  font-size: 35;
+  font-size: 35px;
 	display: inline-block;
 	cursor: pointer;
   height: 64px;
@@ -175,7 +184,7 @@
   width: 240px;
   font-family: w95;
   font-weight: bold;
-  font-size: 35;
+  font-size: 35px;
 }
 
 .buttonBuy:hover {
@@ -188,8 +197,9 @@
     0px 2px 0px #dcdcdc,
     2px 0px 0px #dcdcdc,
     -2px -2px 0px #000000;
-	background-color: #000080 !important;
+	background-color: #000080;
 }
+
 
 @font-face {
   font-family: tech;
