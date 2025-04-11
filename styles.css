@@ -8,6 +8,7 @@
   max-width: 100%;
   height: 128px;
   box-shadow: 0 1px 1px #5c5c5c;
+  z-index: 2;
 }
 
 .home {
@@ -203,14 +204,130 @@
 .backimage{
   margin-top: 160px;
   margin-left: 120px;
-  position: relative;
 }
 
 .binitem{
   position: absolute;
-  width: 620px;
-  height: 80px;
-  background-color: #000000;
+  display: flex;
+  flex-direction: row;
+  top: 256px;
+  left: 132px;
+  width: 975px;
+  height: 160px;
+  border: 2px solid #000000;
+  z-index: 1;
+}
+
+.bintext{
+  width: 400px;
+  font-family: w95;
+  font-size: 48px;
+  text-align: center;
+  line-height: 5s0px;
+}
+
+.binh1{
+  margin-top: 24px;
+  height: auto ;
+}
+
+.binh2{
+  height: auto;
+}
+
+.binsize{
+  width: 280px;
+  font-family: w95;
+  font-size: 60px;
+  text-align: center;
+  line-height: 145px;
+}
+
+.cancelbutton{
+  width: 160px;
+  right: 10px;
+}
+
+.cancelbutton{
+  background-image: url("assets/x.png");
+  box-shadow: 
+    2px 2px 0px #000000,
+    0px 2px 0px #000000,
+    2px 0px 0px #000000;
+}
+
+.cancelbutton:hover {
+	background-image: url("assets/x\ 0.3.jpg");
+}
+
+.cancelbutton:active {
+  box-shadow: 
+    2px 2px 0px #dcdcdc,
+    0px 2px 0px #dcdcdc,
+    2px 0px 0px #dcdcdc,
+    -2px -2px 0px #000000;
+  background-image: url("assets/x\ 0.6.jpg");
+}
+
+.nextitem{
+  position: absolute;
+  top: 736px;
+  left: 132px;
+  width: 975px;
+  height: 88px;
+  box-shadow: 
+  2px 2px 0px #000000,
+  0px 2px 0px #000000,
+  2px 0px 0px #000000,
+  -2px -2px 0px #dcdcdc;
+  background  : #c0c5c9;
+  font-family: w95;
+  font-weight: bold;
+  font-size: 55px;
+}
+
+.nextitem:hover {
+background: #84898d;
+}
+
+.nextitem:active {
+box-shadow: 
+  2px 2px 0px #dcdcdc,
+  0px 2px 0px #dcdcdc,
+  2px 0px 0px #dcdcdc,
+  -2px -2px 0px #000000;
+background-color: #000080;
+}
+
+
+
+.buttonOrder{
+  box-shadow: 
+    2px 2px 0px #000000,
+    0px 2px 0px #000000,
+    2px 0px 0px #000000,
+    -2px -2px 0px #dcdcdc;
+  background  : #c0c5c9;
+  margin-left: 120px;
+  margin-top: 8px;
+  width: 480px;
+  height: 120px;
+  font-family: w95;
+  font-weight: bold;
+  font-size: 95px;
+}
+
+.buttonOrder:hover {
+	background: #84898d;
+}
+
+.buttonOrder:active {
+  box-shadow: 
+    2px 2px 0px #dcdcdc,
+    0px 2px 0px #dcdcdc,
+    2px 0px 0px #dcdcdc,
+    -2px -2px 0px #000000;
+	background-color: #000080;
 }
 
 @font-face {
