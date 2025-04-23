@@ -272,8 +272,8 @@
 .nextitem{
   position: absolute;
   top: 736px;
-  left: 132px;
-  width: 975px;
+  left: 620px;
+  width: 487px;
   height: 88px;
   box-shadow: 
   2px 2px 0px #000000,
@@ -299,7 +299,35 @@ box-shadow:
 background-color: #000080;
 }
 
+.previtem{
+  position: absolute;
+  top: 736px;
+  left: 132px;
+  width: 488px;
+  height: 88px;
+  box-shadow: 
+  2px 2px 0px #000000,
+  0px 2px 0px #000000,
+  2px 0px 0px #000000,
+  -2px -2px 0px #dcdcdc;
+  background  : #c0c5c9;
+  font-family: w95;
+  font-weight: bold;
+  font-size: 55px;
+}
 
+.previtem:hover {
+  background: #84898d;
+}
+
+.previtem:active {
+  box-shadow: 
+    2px 2px 0px #dcdcdc,
+    0px 2px 0px #dcdcdc,
+    2px 0px 0px #dcdcdc,
+    -2px -2px 0px #000000;
+  background-color: #000080;
+}
 
 .buttonOrder{
   box-shadow: 
@@ -328,6 +356,26 @@ background-color: #000080;
     2px 0px 0px #dcdcdc,
     -2px -2px 0px #000000;
 	background-color: #000080;
+}
+
+.order{
+  z-index: 99999;
+  position: absolute;  
+  top: 160px;  
+  left: 320px;
+  width: 1280px;  
+  height: 1300px;  
+  background-color: white;  
+  border: 1px solid black;  
+  padding: 20px; 
+}
+
+.shadowmask {
+  position: absolute;
+  top: 0; bottom: 0; right: 0; left: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 9000;
+  height: auto;
 }
 
 @font-face {

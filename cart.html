@@ -11,7 +11,15 @@
 
 <body>
 
-    <div class = 'cartbody'>
+    <div class = "shadowmask" id = "shadow" style="display: none;">
+      <div class="order" id = "order"style="display: none;">  
+        <h1>Всплывающее окно</h1>  
+        <p>Это всплывающее окно.</p>  
+        <button id="closebutton">Закрыть</button>  
+      </div>
+    </div>
+
+    <div class = 'cartbody' id ='cartbody'>
   
       <div class='header'>
   
@@ -84,57 +92,34 @@
 
         </div>
 
-        <button class = "nextitem"> NEXT ITEM </button>
+
+        <div class= "navButtons"> 
+          <button class = "previtem"> PREV ITEMS </button>
+          <button class = "nextitem"> NEXT ITEMS </button>
+        </div>
+
 
       </div>
 
-      <button class = "buttonOrder" onclick = "location.href='order.html'"> ORDER </button>
+      <button class = "buttonOrder" id = "orderon"> ORDER </button>
+
+      
 
     </div>
 
   <script>
-    fetch('/cart.json')
-      .then(response => {
-        if (!response.ok) throw new Error('Ошибка чтения корзины');
-        return response.json();
-      })
-      .then(cart => {
-        const container = document.getElementById('cart-container');
-        if (cart.length === 0) {
-          container.innerHTML = '<p>Корзина пуста.</p>';
-          return;
-        }
+    document.getElementById("orderon").addEventListener("click", function() {  
+    document.getElementById("order").style.display = "block"; 
+    document.getElementById("shadow").style.display = "block";
+    document.getElementById("cartbody").style.position = "fixed";
+    });  
 
-        let total = 0;
-        cart.forEach((item, index) => {
-          total += item.price;
 
-          const block = document.createElement('div');
-          block.style.marginBottom = '20px';
-          block.innerHTML = `
-            <strong>${item.name}</strong> — Размер: ${item.size} — ${item.price}₽
-            <button onclick="removeItem(${index})">Удалить</button>
-          `;
-          container.appendChild(block);
-        });
-
-        const totalBlock = document.createElement('div');
-        totalBlock.style.marginTop = '40px';
-        totalBlock.innerHTML = `<h2>Итого: ${total}₽</h2>`;
-        container.appendChild(totalBlock);
-      })
-      .catch(err => {
-        document.getElementById('cart-container').innerText = 'Ошибка загрузки корзины';
-        console.error(err);
-      });
-
-    function removeItem(index) {
-      fetch('/api/remove-from-cart', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ index })
-      }).then(() => location.reload());
-    }
+    document.getElementById("closebutton").addEventListener("click", function() {  
+    document.getElementById("order").style.display = "none";
+    document.getElementById("shadow").style.display = "none";   
+    document.getElementById("cartbody").style.position = "absolute";
+    });
   </script>
 </body>
 </html>
