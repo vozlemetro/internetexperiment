@@ -76,43 +76,44 @@
 
   </div>
   <script>
-    document.querySelector('.buttonBuy').addEventListener('click', () => {
-      const selected = document.querySelector('input[name="radio"]:checked');
-  
-      if (!selected) {
-        alert('Сначала выбери размер');
-        return;
-      }
-  
-      // Получаем текст размера по value
-      let size = '';
-      switch (selected.value) {
-        case '1': size = 'M'; break;
-        case '2': size = 'L'; break;
-        case '3': size = 'XL'; break;
-      }
-  
-      fetch('/api/add-to-cart', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          productId: 'dragonborn-jacket',
-          name: 'dragonborn jacket',
-          size: size,
-          price: 10000
+
+    function setupAddToCart() {
+
+      const addButton = document.getElementById('buttonBuy');
+      if (!addButton) return;
+
+      // обработчик клика на кнопку "Купить"
+      addButton.addEventListener('click', () => {
+        const selectedSize = document.querySelector('input[name="radio"]:checked').value;
+
+        // данные товара
+        const productData = {
+          productId: parseInt('1'), // придумать логику получения
+          name: document.querySelector('.itemname').textContent, 
+          size: selectedSize, 
+          price: parseInt(document.querySelector('.itemprice').textContent) 
+        };
+
+        // отправка данных на сервер
+        fetch('/api/add-to-cart', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(productData)
         })
-      })
-      .then(res => res.json())
-      .then(data => {
-        alert(`Товар (${size}) добавлен в корзину!`);
-      })
-      .catch(err => {
-        console.error('Ошибка добавления:', err);
-        alert(`Не получилось:(`);
+        .then(response => response.json())
+        .then(data => {
+          alert(`Товар добавлен в корзину! Размер: ${selectedSize}`);
+        })
+        .catch(error => {
+          console.error('Ошибка:', error);
+          alert(`Не удалось добавить товар: Размер: ${productData.name}`);
+        });
       });
-    });
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        setupAddToCart(); // добавление обработчика для кнопки "Купить"
+      });
   </script>
   
 </body>
