@@ -4,8 +4,8 @@
 
   <title>web.experiment</title>
   <meta charset ="utf-8">  
-  <link rel="stylesheet" href="styles.css">
-  <link rel="shortcut icon" href="/assets/logo.png"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='assets/logo.png') }}"/>
 
 </head>
 
@@ -13,9 +13,24 @@
 
     <div class = "shadowmask" id = "shadow" style="display: none;">
       <div class="order" id = "order"style="display: none;">  
-        <h1>Всплывающее окно</h1>  
-        <p>Это всплывающее окно.</p>  
-        <button id="closebutton">Закрыть</button>  
+        <form id="orderForm">
+          <div>
+              <label for="name">Имя:</label>
+              <input type="text" id="name" name="name" required>
+          </div>
+      
+          <div>
+              <label for="email">Электронная почта:</label>
+              <input type="email" id="email" name="email" required>
+          </div>
+      
+          <div>
+              <label for="address">Адрес доставки:</label>
+              <textarea id="address" name="address" required></textarea>
+          </div>
+      
+          <button type="submit">Оформить заказ</button>
+      </form>  
       </div>
     </div>
 
@@ -23,70 +38,70 @@
   
       <div class='header'>
   
-        <a href="index.html" class = home>
-          <img class = 'logo' src="assets\logoforhead2.png" alt="" width="320" height="96">
+        <a href="{{ url_for('home') }}" class = home>
+          <img class = 'logo' src="{{ url_for('static', filename='assets/logoforhead2.png') }}" alt="" width="320" height="96">
         </a>
   
-        <a href="cart.html" class = shopbutton>
-          <img class = 'bin' src="assets\P example.png" alt="" width="64" height="64">
+        <a href="{{ url_for('cart') }}" class = shopbutton>
+          <img class = 'bin' src="{{ url_for('static', filename='assets/P example.png') }}" alt="" width="64" height="64">
         </a>
   
-        <a href="profile.html" class = profilebutton>
-          <img class = 'profile' src="assets\profile.png" alt="" width="64" height="64">
+        <a href="{{ url_for('profile') }}" class = profilebutton>
+          <img class = 'profile' src="{{ url_for('static', filename='assets/profile.png') }}" alt="" width="64" height="64">
         </a>
   
       </div>
   
       <div class="backimage">
 
-        <img src="assets/bin.jpg" alt="" width="1000" height="720">
+        <img src="{{ url_for('static', filename='assets/bin.jpg') }}" alt="" width="1000" height="720">
 
-        <div class = "binitem">
-          <img src="assets/ite.jpg" alt="" width="159" height="159" style="margin-top: 1px;">
+        <div class = "binitem" id = "1stitem" style="display: none;">
+          <img class= "binimg"  alt="" width="159" height="159" style="margin-top: 1px;">
 
           <div class="bintext">
             
-            <div class = "binh1">dragonborn jacket</div>
+            <div class = "binh1"></div>
 
-            <div class = "binh2">15000 rub.</div>
+            <div class = "binh2"></div>
           
           </div>
 
-          <div class="binsize">SIZE: M</div>
+          <div class="binsize"></div>
+
+          <button class="cancelbutton" > </button>
+
+        </div>
+
+        <div class = "binitem2" id = "2nditem" style="display: none;">
+          <img class= "binimg"  alt="" width="157" height="157" style="margin-top: 1px;">
+
+          <div class="bintext">
+            
+            <div class = "binh1"></div>
+
+            <div class = "binh2"></div>
+          
+          </div>
+
+          <div class="binsize"></div>
 
           <button class="cancelbutton"> </button>
 
         </div>
 
-        <div class = "binitem">
-          <img src="assets/ite.jpg" alt="" width="159" height="159" style="margin-top: 1px;">
+        <div class = "binitem3" id = "3thtitem" style="display: none;">
+          <img class= "binimg"  alt="" width="159" height="159" style="margin-top: 1px;">
 
           <div class="bintext">
             
-            <div class = "binh1">dragonborn jacket</div>
+            <div class = "binh1"></div>
 
-            <div class = "binh2">15000 rub.</div>
+            <div class = "binh2"></div>
           
           </div>
 
-          <div class="binsize">SIZE: M</div>
-
-          <button class="cancelbutton"> </button>
-
-        </div>
-
-        <div class = "binitem">
-          <img src="assets/ite.jpg" alt="" width="159" height="159" style="margin-top: 1px;">
-
-          <div class="bintext">
-            
-            <div class = "binh1">dragonborn jacket</div>
-
-            <div class = "binh2">15000 rub.</div>
-          
-          </div>
-
-          <div class="binsize">SIZE: M</div>
+          <div class="binsize"></div>
 
           <button class="cancelbutton"> </button>
 
@@ -94,16 +109,13 @@
 
 
         <div class= "navButtons"> 
-          <button class = "previtem"> PREV ITEMS </button>
-          <button class = "nextitem"> NEXT ITEMS </button>
+          <button class = "previtem"> PREV </button>
+          <button class = "buttonOrder" id = "orderon"> ORDER </button>
+          <button class = "nextitem"> NEXT </button>
         </div>
 
 
       </div>
-
-      <button class = "buttonOrder" id = "orderon"> ORDER </button>
-
-      
 
     </div>
 
@@ -133,47 +145,52 @@
                               
     //загрузка корзины с сервера
     function loadCart() {
-        fetch('/cart.json') //запрос
-            .then(response => {
-                if (!response.ok) throw new Error('Ошибка загрузки корзины');
-                return response.json();
-            })
-            .then(data => {
-                cartItems = data;
-                renderCartItems();
-            })
-            .catch(error => {
-                console.error('Ошибка:', error);
-                alert('Не удалось загрузить корзину');
-            });
+      try {
+          const response = fetch('/cart.json');
+          cartItems = response.json(); 
+          currentPage = 0;
+          renderCartItems();
+          } catch (error) {
+          console.error('Ошибка загрузки корзины:', error);
+          alert('Не удалось загрузить корзину');
+          }
     }
 
     //отображение товаров
     function renderCartItems() {
-        const startIdx = currentPage * itemsPerPage;
-        const endIdx = startIdx + itemsPerPage;
-        const itemsToShow = cartItems.slice(startIdx, endIdx);
+      const startIdx = currentPage * itemsPerPage;
+      const endIdx = startIdx + itemsPerPage;
+      const itemsToShow = cartItems.slice(startIdx, endIdx);
 
-        document.querySelectorAll('.binitem').forEach(item => {
-            item.style.display = 'none';
-        });
+      const binItems = [
+          document.querySelector('.binitem'),
+          document.querySelector('.binitem2'),
+          document.querySelector('.binitem3')
+      ];
 
-        //заполнение блоков данными
-        itemsToShow.forEach((item, idx) => {
-            const binItem = document.querySelectorAll('.binitem')[idx];
-            if (!binItem) return;
+      binItems.forEach((binItem, idx) => {
+          const item = itemsToShow[idx];
 
-            binItem.style.display = 'flex';
-            binItem.querySelector('.binh1').textContent = item.name;
-            binItem.querySelector('.binh2').textContent = `${item.price} rub.`;
-            binItem.querySelector('.binsize').textContent = `SIZE: ${item.size}`;
+          if (item) {
+              binItem.style.display = 'flex';
 
-            
-            const deleteBtn = binItem.querySelector('.cancelbutton');
-            deleteBtn.onclick = () => removeItem(startIdx + idx);
-        });
+              const title = binItem.querySelector('.binh1');
+              const price = binItem.querySelector('.binh2');
+              const size = binItem.querySelector('.binsize');
+              const img = binItem.querySelector('.binimg');
+              const deleteBtn = binItem.querySelector('.cancelbutton');
 
-    }
+              if (title) title.textContent = item.name;
+              if (price) price.textContent = `${item.price} rub.`;
+              if (size) size.textContent = `SIZE: ${item.size}`;
+              if (img) img.src = item.imgUrl;
+              if (deleteBtn) deleteBtn.onclick = () => removeItem(startIdx + idx);
+
+          } else {
+              binItem.style.display = 'none';
+          }
+      });
+}
 
     // удаление предмета
     function removeItem(index) {
@@ -250,8 +267,10 @@
         });
 
         document.querySelector('.previtem').addEventListener('click', () => {
-            currentPage--;
-            renderCartItems();
+            if (currentPage > 0.1) {
+                currentPage--;
+                renderCartItems();
+            }
         });
 
 

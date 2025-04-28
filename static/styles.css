@@ -202,15 +202,36 @@
 }
 
 .backimage{
-  margin-top: 120px;
+  margin-top: 160px;
   margin-left: 120px;
 }
 
 .binitem{
   position: absolute;
-  display: flex;
   flex-direction: row;
-  top: 216px;
+  top: 256px;
+  left: 132px;
+  width: 975px;
+  height: 160px;
+  border: 2px solid #000000;
+  z-index: 1;
+}
+
+.binitem2{
+  position: absolute;
+  flex-direction: row;
+  top: 416px;
+  left: 132px;
+  width: 975px;
+  height: 160px;
+  border: 2px solid #000000;
+  z-index: 1;
+}
+
+.binitem3{
+  position: absolute;
+  flex-direction: row;
+  top: 576px;
   left: 132px;
   width: 975px;
   height: 160px;
@@ -272,8 +293,8 @@
 .nextitem{
   position: absolute;
   top: 736px;
-  left: 620px;
-  width: 487px;
+  left: 782px;
+  width: 325px;
   height: 88px;
   box-shadow: 
   2px 2px 0px #000000,
@@ -303,7 +324,7 @@ background-color: #000080;
   position: absolute;
   top: 736px;
   left: 132px;
-  width: 488px;
+  width: 325px;
   height: 88px;
   box-shadow: 
   2px 2px 0px #000000,
@@ -336,13 +357,14 @@ background-color: #000080;
     2px 0px 0px #000000,
     -2px -2px 0px #dcdcdc;
   background  : #c0c5c9;
-  margin-left: 120px;
-  margin-top: 8px;
-  width: 480px;
-  height: 120px;
+  position: absolute;
+  top: 736px;
+  left: 457px;
+  width: 325px;
+  height: 88px;
   font-family: w95;
   font-weight: bold;
-  font-size: 95px;
+  font-size: 75px;
 }
 
 .buttonOrder:hover {
@@ -376,6 +398,26 @@ background-color: #000080;
   background: rgba(0,0,0,0.8);
   z-index: 9000;
   height: auto;
+}
+
+.manifesto {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+  text-align: center;
+  font-size: 25px;
+  color: #000000;
+  font-family: tech;
+  white-space: pre-line;
+}
+
+.manifesto h1 {
+  margin-top: 80px;
+  text-align: center;
+  color: #000000;
+  font-size: 50px;
+  margin-bottom: 2rem;
+  font-family: tech;
 }
 
 @font-face {
