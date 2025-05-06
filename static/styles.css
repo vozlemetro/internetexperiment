@@ -383,13 +383,11 @@ background-color: #000080;
 .order{
   z-index: 99999;
   position: absolute;  
-  top: 160px;  
-  left: 320px;
-  width: 1280px;  
-  height: 1300px;  
-  background-color: white;  
-  border: 1px solid black;  
-  padding: 20px; 
+  top: 80px;  
+  left: 240px;
+  width: 1440px;
+  height: 760px;
+  background-image: url(assets/order.jpg);   
 }
 
 .shadowmask {
@@ -398,6 +396,48 @@ background-color: #000080;
   background: rgba(0,0,0,0.8);
   z-index: 9000;
   height: auto;
+}
+
+.inputName{
+  position: absolute;
+  top: 79px; 
+  left: 276px;
+  width: 1079px;
+  height: 94px;
+}
+
+.inputEmail{
+  position: absolute;
+  top: 267px; 
+  left: 276px;
+  width: 1079px;
+  height: 94px;
+}
+
+.inputAddress{
+  position: absolute;
+  top: 455px; 
+  left: 276px;
+  width: 1079px;
+  height: 94px;
+}
+
+input[type="name"]
+{
+    font-size:60px;
+    font-family: tech;
+}
+
+input[type="email"]
+{
+    font-size:60px;
+    font-family: tech;
+}
+
+input[type="address"]
+{
+    font-size:60px;
+    font-family: tech;
 }
 
 .manifesto {

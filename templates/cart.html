@@ -15,21 +15,21 @@
       <div class="order" id = "order"style="display: none;">  
         <form id="orderForm">
           <div>
-              <label for="name">Имя:</label>
-              <input type="text" id="name" name="name" required>
-          </div>
-      
-          <div>
-              <label for="email">Электронная почта:</label>
-              <input type="email" id="email" name="email" required>
-          </div>
-      
-          <div>
-              <label for="address">Адрес доставки:</label>
-              <textarea id="address" name="address" required></textarea>
-          </div>
-      
-          <button type="submit">Оформить заказ</button>
+            <label for="name"></label>
+            <input class = "inputName" type="name" id="name" name="name" required>
+        </div>
+    
+        <div>
+            <label for="email"></label>
+            <input class = "inputEmail" type="email" id="email" name="email" required>
+        </div>
+    
+        <div>
+            <label for="address"></label>
+            <input class = "inputAddress" type="address" id="address" name="address" required>
+        </div>
+          <button class="buttonOrder" type="submit" style="position: absolute; top: 610px; left: 540px; transform: scale(1.5);">ORDER</button>
+          <button class="cancelbutton" id="closebutton" style="height: 160px; transform: scale(0.5); position: fixed; top: 8px; right :8px;"></button> 
       </form>  
       </div>
     </div>
@@ -144,17 +144,17 @@
     });
                               
     //загрузка корзины с сервера
-    function loadCart() {
-      try {
-          const response = fetch('/cart.json');
-          cartItems = response.json(); 
-          currentPage = 0;
-          renderCartItems();
-          } catch (error) {
-          console.error('Ошибка загрузки корзины:', error);
-          alert('Не удалось загрузить корзину');
-          }
-    }
+    async function loadCart() {
+  try {
+    const response = await fetch('/cart.json');
+    cartItems = await response.json();
+    currentPage = 0;
+    renderCartItems();
+  } catch (error) {
+    console.error('Ошибка загрузки корзины:', error);
+    alert('Не удалось загрузить корзину');
+  }
+}
 
     //отображение товаров
     function renderCartItems() {
@@ -206,21 +206,18 @@
             alert('Не удалось удалить товар');
         });
     }
-
-    // функции заказа
     function showOrderForm() {
 
-        document.getElementById('orderForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            placeOrder();
-        });
+document.getElementById('orderForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    placeOrder();
+});
 
-        
-        document.getElementById('close-popup').addEventListener('click', () => {
-            orderPopup.style.display = 'none';
-        });
-    }
 
+document.getElementById('closebutton').addEventListener('click', () => {
+    orderPopup.style.display = 'none';
+});
+}
     // отправка заказа в бэк
     function placeOrder() {
         const form = document.getElementById('orderForm');

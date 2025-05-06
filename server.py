@@ -35,6 +35,7 @@ def add_to_cart():
 
     return jsonify({"status": "ok", "added": new_item})
 
+
 @app.route('/api/remove-from-cart', methods=['POST']) #удаление товара 
 def remove_from_cart():
     index = request.json.get('index')  # получение индекса товара
@@ -52,6 +53,12 @@ def remove_from_cart():
         json.dump(cart, f)  # сохранение изменений
 
     return jsonify({"status": "deleted", "item": removed_item})
+
+@app.route('/api/clear-cart', methods=['POST'])
+def clear_cart():
+    with open('cart.json', 'w', encoding='utf-8') as f:
+        json.dump([], f)  # очистить корзину
+    return jsonify({'success': True})
 
 
 # API для заказов
