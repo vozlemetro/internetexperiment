@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>web.experiment</title>
+  <meta charset ="utf-8">  
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='assets/logo.png') }}"/>
+
+</head>
+
+<body>
+
+    <div class = "shadowmask" id = "shadow" style="display: none;">
+      <div class="order" id = "order"style="display: none;">  
+        <form id="orderForm">
+          <div>
+            <label for="name"></label>
+            <input class = "inputName" type="name" id="name" name="name" required>
+        </div>
+    
+        <div>
+            <label for="email"></label>
+            <input class = "inputEmail" type="email" id="email" name="email" required>
+        </div>
+    
+        <div>
+            <label for="address"></label>
+            <input class = "inputAddress" type="address" id="address" name="address" required>
+        </div>
+          <button class="buttonOrder" type="submit" style="position: absolute; top: 610px; left: 540px; transform: scale(1.5);">ORDER</button>
+          <button class="cancelbutton" id="closebutton" style="height: 160px; transform: scale(0.5); position: fixed; top: 8px; right :8px;"></button> 
+      </form>  
+      </div>
+    </div>
+
+    <div class = 'cartbody' id ='cartbody'>
+  
+      <div class='header'>
+  
+        <a href="{{ url_for('home') }}" class = home>
+          <img class = 'logo' src="{{ url_for('static', filename='assets/logoforhead2.png') }}" alt="" width="320" height="96">
+        </a>
+  
+        <a href="{{ url_for('cart') }}" class = shopbutton>
+          <img class = 'bin' src="{{ url_for('static', filename='assets/P example.png') }}" alt="" width="64" height="64">
+        </a>
+  
+        <a href="{{ url_for('profile') }}" class = profilebutton>
+          <img class = 'profile' src="{{ url_for('static', filename='assets/profile.png') }}" alt="" width="64" height="64">
+        </a>
+  
+      </div>
+  
+      <div class="backimage">
+
+        <img src="{{ url_for('static', filename='assets/bin.jpg') }}" alt="" width="1000" height="720">
+
+        <div class = "binitem" id = "1stitem" style="display: none;">
+          <img class= "binimg"  alt="" width="159" height="159" style="margin-top: 1px;">
+
+          <div class="bintext">
+            
+            <div class = "binh1"></div>
+
+            <div class = "binh2"></div>
+          
+          </div>
+
+          <div class="binsize"></div>
+
+          <button class="cancelbutton" > </button>
+
+        </div>
+
+        <div class = "binitem2" id = "2nditem" style="display: none;">
+          <img class= "binimg"  alt="" width="157" height="157" style="margin-top: 1px;">
+
+          <div class="bintext">
+            
+            <div class = "binh1"></div>
+
+            <div class = "binh2"></div>
+          
+          </div>
+
+          <div class="binsize"></div>
+
+          <button class="cancelbutton"> </button>
+
+        </div>
+
+        <div class = "binitem3" id = "3thtitem" style="display: none;">
+          <img class= "binimg"  alt="" width="159" height="159" style="margin-top: 1px;">
+
+          <div class="bintext">
+            
+            <div class = "binh1"></div>
+
+            <div class = "binh2"></div>
+          
+          </div>
+
+          <div class="binsize"></div>
+
+          <button class="cancelbutton"> </button>
+
+        </div>
+
+
+        <div class= "navButtons"> 
+          <button class = "previtem"> PREV </button>
+          <button class = "buttonOrder" id = "orderon"> ORDER </button>
+          <button class = "nextitem"> NEXT </button>
+        </div>
+
+
+      </div>
+
+    </div>
+
+  <script>
+    document.getElementById("orderon").addEventListener("click", function() {  
+    document.getElementById("order").style.display = "block"; 
+    document.getElementById("shadow").style.display = "block";
+    document.getElementById("cartbody").style.position = "fixed";
+    });  
+
+
+    document.getElementById("closebutton").addEventListener("click", function() {  
+    document.getElementById("order").style.display = "none";
+    document.getElementById("shadow").style.display = "none";   
+    document.getElementById("cartbody").style.position = "absolute";
+    });
+
+    let currentPage = 0;
+    const itemsPerPage = 3;
+    let cartItems = [];
+
+      //при загрузке корзины
+    document.addEventListener('DOMContentLoaded', () => {
+        loadCart();
+        setupEventListeners();
+    });
+                              
+    //загрузка корзины с сервера
+    async function loadCart() {
+  try {
+    const response = await fetch('/cart.json');
+    cartItems = await response.json();
+    currentPage = 0;
+    renderCartItems();
+  } catch (error) {
+    console.error('Ошибка загрузки корзины:', error);
+    alert('Не удалось загрузить корзину');
+  }
+}
+
+    //отображение товаров
+    function renderCartItems() {
+      const startIdx = currentPage * itemsPerPage;
+      const endIdx = startIdx + itemsPerPage;
+      const itemsToShow = cartItems.slice(startIdx, endIdx);
+
+      const binItems = [
+          document.querySelector('.binitem'),
+          document.querySelector('.binitem2'),
+          document.querySelector('.binitem3')
+      ];
+
+      binItems.forEach((binItem, idx) => {
+          const item = itemsToShow[idx];
+
+          if (item) {
+              binItem.style.display = 'flex';
+
+              const title = binItem.querySelector('.binh1');
+              const price = binItem.querySelector('.binh2');
+              const size = binItem.querySelector('.binsize');
+              const img = binItem.querySelector('.binimg');
+              const deleteBtn = binItem.querySelector('.cancelbutton');
+
+              if (title) title.textContent = item.name;
+              if (price) price.textContent = `${item.price} rub.`;
+              if (size) size.textContent = `SIZE: ${item.size}`;
+              if (img) img.src = item.imgUrl;
+              if (deleteBtn) deleteBtn.onclick = () => removeItem(startIdx + idx);
+
+          } else {
+              binItem.style.display = 'none';
+          }
+      });
+}
+
+    // удаление предмета
+    function removeItem(index) {
+        fetch('/api/remove-from-cart', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ index })
+        })
+        .then(response => response.json())
+        .then(() => loadCart())
+        .catch(error => {
+            console.error('Ошибка удаления:', error);
+            alert('Не удалось удалить товар');
+        });
+    }
+    function showOrderForm() {
+
+document.getElementById('orderForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    placeOrder();
+});
+
+
+document.getElementById('closebutton').addEventListener('click', () => {
+    orderPopup.style.display = 'none';
+});
+}
+    // отправка заказа в бэк
+    function placeOrder() {
+        const form = document.getElementById('orderForm');
+        const formData = new FormData(form);
+
+        const orderData = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            address: formData.get('address'),
+            items: cartItems,
+            total: cartItems.reduce((sum, item) => sum + item.price, 0)
+        };
+
+        fetch('/api/place-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(orderData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Заказ оформлен! Номер заказа: ' + data.order_id);
+                fetch('/api/clear-cart', { method: 'POST' })
+                    .then(() => {
+                        document.getElementById('order').style.display = 'none';
+                        loadCart();
+                    });
+            } else {
+                alert('Ошибка: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            alert('Ошибка при оформлении заказа');
+        });
+    }
+
+    // функционал кнопок заказать, следующие и предыдущие предметы
+    function setupEventListeners() {
+        
+        document.querySelector('.nextitem').addEventListener('click', () => {
+            currentPage++;
+            renderCartItems();
+        });
+
+        document.querySelector('.previtem').addEventListener('click', () => {
+            if (currentPage > 0.1) {
+                currentPage--;
+                renderCartItems();
+            }
+        });
+
+
+        
+        document.getElementById('orderon').addEventListener('click', showOrderForm);
+    }
+  </script>
+</body>
+</html>
